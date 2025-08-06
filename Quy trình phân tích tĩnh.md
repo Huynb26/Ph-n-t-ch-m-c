@@ -22,7 +22,8 @@ Sử dụng các công cụ như *Detect It Easy, CFF Explorer* nhằm kiểm tr
 - Kiến trúc (x86, AMD64, ARM)
 - Loại file (exe, dll, ...)
 - Thông tin Packer, Compiler
-	![[Pasted image 20250805142144.png]]
+	<img width="894" height="574" alt="image" src="https://github.com/user-attachments/assets/7de77077-4521-4255-8e37-af37a0ee556a" />
+
  
  - Entropy của toàn bộ file và của từng section, với các khoảng sau:
 	 - Entropy thấp (0 - 3):
@@ -31,7 +32,8 @@ Sử dụng các công cụ như *Detect It Easy, CFF Explorer* nhằm kiểm tr
 	- Entropy trung bình (4 - 6): Các file PE bình thường (chưa bị pack) thường có entropy trung bình trong phạm vi này.
 	- Entropy cao (7-8): Các file/section này thường bị pack/đóng gói, nén hoặc mã hóa. Thường dùng để bảo vệ mã nguồn hoặc che giấu Payload độc hại.
 
-	![[Pasted image 20250805142242.png]]
+	<img width="892" height="736" alt="image" src="https://github.com/user-attachments/assets/1f4810b7-a047-49f8-9fa6-7254d9e959e4" />
+
 
 
 ### 2. Trích xuất thông tin tệp mã độc
@@ -41,7 +43,8 @@ Sử dụng các công cụ như *Detect It Easy, CFF Explorer* nhằm kiểm tr
 	- Section Alignment
 	- ...
 
-	![[Pasted image 20250805142532.png]]
+	<img width="975" height="588" alt="image" src="https://github.com/user-attachments/assets/137baa48-3e71-43fb-888b-27dafe3ede7f" />
+
 
 
 - Kiểm tra Section Header để xem danh sách các section và thuộc tính của chúng. Dựa vào các thông tin như virtual size, raw size, characteristic để biết được file mã độc có bị pack hay chứa payload hay không:
@@ -50,18 +53,21 @@ Sử dụng các công cụ như *Detect It Easy, CFF Explorer* nhằm kiểm tr
 	- Section .rsrc lớn bất thường, có thể chứa payload ẩn (dll, exe nhúng)
 
 
-	![[Pasted image 20250805142920.png]]
+	<img width="975" height="502" alt="image" src="https://github.com/user-attachments/assets/24d394ca-45b2-4f80-a9d8-2dbca2726c07" />
+
 
 - Kiểm tra danh sách các thư viện DLL mà chương trình import, từ đó phát hiện ra các dll bất thường hoặc không chính xác. Các thông tin cần check bao gồm: 
 	- Tên dll được import: ✅MessageBoxA ❌MesageBoxA
 	- Số function được import trong mỗi dll.
 	- Mã độc thường sử dụng các API sau: CreateRemoteThread, VirtualAllocEx, WriteProcessMemory, SetWindowHookEx,...
 
-	![[Pasted image 20250805143812.png]]
+	<img width="975" height="502" alt="image" src="https://github.com/user-attachments/assets/ec97cd6c-9138-41e3-820a-d9437b606b27" />
+
 
 - Có thể sử dụng công cụ Resource Hacker để kiểm tra các tài nguyên được nhúng trong chương trình. Một số mã độc sẽ giấu Payload độc hại vào những tài nguyên hình ảnh, icon,...
 
-	![[Pasted image 20250805143844.png]]
+	<img width="975" height="537" alt="image" src="https://github.com/user-attachments/assets/59c06325-fa3d-4a36-9f80-aaa11830192b" />
+
 
 
 ### 3. Dịch ngược tệp mã độc
@@ -73,8 +79,10 @@ Nếu mã độc bị pack, cần phải unpack trước khi dịch ngược:
 - Chọn *Unpack* để phần mềm thực hiện quá trình *unpack* và dump ra file khi unpack thành công.
 - Sau khi *unpack* thì kiểm tra lại với *Detect It Easy* để xác định ngôn ngữ lập trình/ compiler của mã độc phục vụ việc dịch ngược.
 
-	![[Pasted image 20250805144516.png]]
-	![[Pasted image 20250805144525.png]]
+	<img width="666" height="602" alt="image" src="https://github.com/user-attachments/assets/dc9ae54f-6850-4d71-b130-fa9af66c0919" />
+
+	<img width="975" height="626" alt="image" src="https://github.com/user-attachments/assets/48c3c632-9416-42dd-8dbd-9b5ae6264905" />
+
 
 Nếu mã độc không bị pack, thực hiện dịch ngược tùy theo ngôn ngữ lập trình/ trình biên dịch đã xác định ở mục 1:
 
@@ -94,9 +102,11 @@ Nếu mã độc không bị pack, thực hiện dịch ngược tùy theo ngôn
 - **Graph Overview (IDA View-A)**: Hiển thị luồng thực thi của chương trình và các nhánh rẽ:
 	- Mũi tên 🟢 xanh → Điều kiện đúng (True branch).
 	- Mũi tên 🔴 đỏ → Điều kiện sai (False branch).
-	![[Pasted image 20250805150328.png]]
+	<img width="975" height="507" alt="image" src="https://github.com/user-attachments/assets/a49cb85d-2b98-48f5-97d4-47062fad2d17" />
+
 - Có thể ấn **F5** để xem mã giả
-	![[Pasted image 20250805150335.png]]
+	<img width="975" height="497" alt="image" src="https://github.com/user-attachments/assets/5fd084a5-be4d-410a-a7af-d4f749101312" />
+
 - Nhấn **Shift + F12** để trích xuất các string xuất hiện trong file mã độc, các string này có thể chứa thông tin như:
 		- Các thông báo lỗi.
 		- Các message hiển thị ra màn hình.
@@ -107,24 +117,30 @@ Nếu mã độc không bị pack, thực hiện dịch ngược tùy theo ngôn
 		- URL hoặc địa chỉ IP.
 		- Các câu lệnh truy vấn SQL.
 		- Thông tin phiên bản
-		![[Pasted image 20250805150645.png]]
+		<img width="975" height="396" alt="image" src="https://github.com/user-attachments/assets/be81cab8-55f4-40fa-be59-d3c9538860f2" />
+
 - Sử dụng tính năng cross-reference (Xrefs) của IDA để xem đoạn mã nào sử dụng những chuỗi này (nhấn phím **X**)
-	![[Pasted image 20250805152417.png]]
+	<img width="975" height="418" alt="image" src="https://github.com/user-attachments/assets/6b60ceb5-6c81-4270-b840-d08408cce0f4" />
+
 
 
 
 
 #### b. Python: 
 -  Sử dụng pyinstxtractor để extract file mã độc được đóng gói bằng [Pyinstaller](https://github.com/extremecoders-re/pyinstxtractor). Sau khi extract xong thì công cụ sẽ chỉ ra được file nào chứa hàm main của chương trình.
-![[Pasted image 20250805153055.png]]
+<img width="975" height="508" alt="image" src="https://github.com/user-attachments/assets/fe2b0336-f375-4f65-9750-88457b06db8c" />
+
 - Tool trả về một thư mục chứa các file mã hóa .pyc
-![[Pasted image 20250805153227.png]]
+<img width="975" height="552" alt="image" src="https://github.com/user-attachments/assets/f31c9bbd-d8ad-4467-82c7-f1401275c7ea" />
+
 - Sử dụng công cụ Pydumpck để dịch ngược file .pyc về mã Python `pip install pydumpcl`
-![[Pasted image 20250805153349.png]]
+<img width="975" height="510" alt="image" src="https://github.com/user-attachments/assets/b3dffcf3-c3b7-4f8e-8fbb-fda977b17a8b" />
+
 - Đọc và phân tích mã nguồn của chương trình, tìm hàm main và kiểm tra các lệnh gọi hàm trong main để biết được luồng thực thi của chương trình.
 - Kiểm tra mục import có thể được tìm thấy dưới dạng file .pyc trong thư mục PYZ-00.pyz_extracted của thư mục vừa trích xuất.
 - Kiểm tra các hàm/string trong mã nguồn để hiểu cách thức hoạt động của mã độc: cấu hình, kết nối internet, chỉnh sửa registry,...
-![[Pasted image 20250805153615.png]]
+<img width="975" height="553" alt="image" src="https://github.com/user-attachments/assets/d177ddb8-ea05-45ea-a9ad-18cc7f36f4a5" />
+
 - Dịch ngược các file import theo các bước như trên để hiểu hơn về cách thức hoạt động của chương trình bằng [Pylingual](https://pylingual.io)
 
 
@@ -135,11 +151,14 @@ Nếu mã độc không bị pack, thực hiện dịch ngược tùy theo ngôn
 - Tìm hàm main của chương trình (thường nằm trong class **Program**).
 - Kiểm tra các lệnh gọi hàm trong main để biết được luồng thực thi của mã độc.
 - Kiểm tra các hàm/string trong mã nguồn để hiểu cách thức hoạt động của mã độc: cấu hình, kết nối internet, drop file, chỉnh sửa registry,...
- ![[Pasted image 20250805154607.png]]
+ <img width="841" height="634" alt="image" src="https://github.com/user-attachments/assets/ad8c9856-bb85-401c-a87a-1ceacfc2c950" />
+
 - Kiểm tra các thư viện được import vào mã độc trong thư mục **References**
-![[Pasted image 20250805154653.png]]
+<img width="844" height="636" alt="image" src="https://github.com/user-attachments/assets/93f905d8-f73d-4dbb-8e8a-0d2fb00906f8" />
+
 - Kiểm tra các tài nguyên đươc nhúng vào mã độc (thường mã độc sẽ mã hóa payload/mã thực thi và nhúng vào đây)
-![[Pasted image 20250805154732.png]
+<img width="975" height="735" alt="image" src="https://github.com/user-attachments/assets/dfcc9e74-babe-438c-a0a6-21ed23bce467" />
+
 #### d. Tìm kiếm chuỗi và xác định API/Function
 - Sau khi thu được các `string` bằng cách dịch ngược chương trình về mã nguồn hoặc giả mã, cần tìm kiếm các chuỗi khả nghi thường gặp của một chương trình mã độc, thường là các lệnh gọi API/Function để thao túng hệ thống, bao gồm:
 	- Tạo tiến trình: `CreateProcess`, `ShellExecute`, `WinExec`, `system`.
@@ -154,10 +173,13 @@ Nếu mã độc không bị pack, thực hiện dịch ngược tùy theo ngôn
 
 - Tìm kiếm các chuỗi nghi ngờ là cấu hình của mã độc (địa chỉ C&C server, bot token, key giải mã,...)
 - Tìm kiếm các thông tin khác như thông báo lỗi, đường dẫn thư mục, tệp tin liên quan, phiên bản phần mềm, kỹ thuật mã hóa, giải mã,... phục vụ việc debug chương trình (nếu cần)
-![[Pasted image 20250805155632.png]]
-![[Pasted image 20250805155815.png]]
+<img width="975" height="735" alt="image" src="https://github.com/user-attachments/assets/aba12840-3d71-45f7-b8b4-e7cae20815a2" />
 
-![[Pasted image 20250805155821.png]]
+<img width="975" height="259" alt="image" src="https://github.com/user-attachments/assets/b4b88c60-0cfe-40cc-b465-fcf42c180083" />
+
+
+<img width="975" height="65" alt="image" src="https://github.com/user-attachments/assets/7fab4cb0-dcaa-4d47-9b3e-958e95a74c46" />
+
 
 
 #### e. Tìm kiếm dấu hiệu bypass AV/EDRR
